@@ -24,7 +24,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          height:50,
+          height:55,
           borderTopWidth:0,
           position:'relative',
           // Shadow properties for iOS
@@ -45,33 +45,52 @@ export default function TabLayout() {
         name="index"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <AntDesign 
+          tabBarIcon: ({ color }) => {
+            const isActive = color !== 'gray'
+            return (
+              <AntDesign 
               name="home"
-              size={24}
+              size={22}
               color={color}
-              style={{backgroundColor:'red',padding:5,marginBottom: -3}}
+              style={{
+                backgroundColor: isActive ? '#ffedd5' : 'transparent',
+                padding: isActive ? 8 : 0,
+                marginBottom: isActive ? -3 : 0,
+                paddingHorizontal:isActive ? 12 : 0,
+                borderRadius: isActive ? 15 : 0,
+              }}
             />
-          ),
+            )
+          },
           tabBarLabel: 'Home',
           tabBarLabelStyle:{
-            marginBottom:5
-          }
+            marginBottom:3
+          },
         }}
       />
       <Tabs.Screen
         name="two2"
         options={{
-          tabBarIcon: ({ color }) => (
-            <AntDesign
-              name="search1"
-              size={22}
-              color={color}
+          tabBarIcon: ({ color }) => {
+            const isActive = color !== 'gray'
+            return (
+              <AntDesign
+                name="search1"
+                size={22}
+                color={color}
+                style={{
+                  backgroundColor: isActive ? '#ffedd5' : 'transparent',
+                  padding: isActive ? 8 : 0,
+                  marginBottom: isActive ? -3 : 0,
+                  paddingHorizontal:isActive ? 12 : 0,
+                  borderRadius: isActive ? 15 : 0,
+                }}
             />
-          ),
+            )
+          },
           tabBarLabel: 'Search',
           tabBarLabelStyle:{
-            marginBottom:5
+            marginBottom:3
           }
         }}
       />
@@ -108,34 +127,56 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+      
         name="two3"
         options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons
-              name="heart-outline"
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarIcon: ({ color }) => {
+            const isActive = color !== 'gray'
+            return (
+              <Ionicons
+                name="heart-outline"
+                size={24}
+                color={color}
+                style={{
+                  backgroundColor: isActive ? '#ffedd5' : 'transparent',
+                  padding: isActive ? 6 : 0,
+                  
+                  marginBottom: isActive ? -3 : 0,
+                  paddingHorizontal:isActive ? 10 : 0,
+                  borderRadius: isActive ? 15 : 0,
+                }}
+              />
+            )
+          },
           tabBarLabel: 'Favourite',
           tabBarLabelStyle:{
-            marginBottom:5
+            marginBottom:3
           }
         }}
       />
       <Tabs.Screen
         name="two4"
         options={{
-          tabBarIcon: ({ color }) => (
-            <AntDesign
-              name="user"
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarIcon: ({ color }) => {
+            const isActive = color !== 'gray'
+            return (
+              <AntDesign
+                name="user"
+                size={24}
+                color={color}
+                style={{
+                  backgroundColor: isActive ? '#ffedd5' : 'transparent',
+                  padding: isActive ? 6 : 0,
+                  marginBottom: isActive ? -3 : 0,
+                  paddingHorizontal:isActive ? 10 : 0,
+                  borderRadius: isActive ? 15 : 0,
+                }}
+              />
+            )
+          },
           tabBarLabel: 'Profile',
           tabBarLabelStyle:{
-            marginBottom:5
+            marginBottom:3
           }
         }}
       />
