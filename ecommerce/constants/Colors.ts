@@ -16,4 +16,7 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  splashing: {
+    background: '#f97316'
+  }
 };
