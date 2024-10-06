@@ -1,5 +1,5 @@
 import { View, Text, Image, ActivityIndicator, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import Colors from '@/constants/Colors';
 
 const Splashing = () => {
@@ -14,7 +14,7 @@ const Splashing = () => {
       );
 }
 
-export {Splashing}
+export default Splashing;
 
 const styles = StyleSheet.create({
     splashContainer: {
