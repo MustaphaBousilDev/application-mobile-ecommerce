@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
 
-export default function TabOneScreen() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <Text>One</Text>
