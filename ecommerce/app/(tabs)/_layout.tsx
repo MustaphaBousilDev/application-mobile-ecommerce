@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native';
 const AntDesign = React.lazy(() => import('@expo/vector-icons/AntDesign'));
 const Ionicons = React.lazy(() => import('@expo/vector-icons/Ionicons'));
 type TabType = {
@@ -11,7 +11,7 @@ type TabType = {
   label?: string | null;
   icon: React.ComponentType<any>;
   iconName: string;
-  style: keyof StylesType; // Ensure style is a key of StylesType
+  style: keyof StylesType;
 };
 const tabs: TabType[] = [
   {
@@ -52,6 +52,7 @@ const tabs: TabType[] = [
 ];
 
 
+
 interface MemoizationPropsTabs {
   tab: {
     name: string;
@@ -66,7 +67,7 @@ const MemoizedTabIcon = React.memo<MemoizationPropsTabs>(({ tab, color }) => {
   const isActive = color !== 'gray';
   const IconComponent = tab.icon;
   return (
-    <Suspense fallback={<></>}>
+    <Suspense  fallback={<></>}>
       <IconComponent
         name={tab.iconName as any}
         size={tab.name === 'Cart' ? 24 : 22}
@@ -78,6 +79,9 @@ const MemoizedTabIcon = React.memo<MemoizationPropsTabs>(({ tab, color }) => {
 });
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const handlePr = () => {
+    console.log('fuck')
+  }
   const renderTabBarIcon = useCallback(
     (tab: any) => ({ color }: any) => <MemoizedTabIcon tab={tab} color={color} />,
     []
@@ -97,7 +101,10 @@ export default function TabLayout() {
             options={{
               headerShown: tab.name === 'index' ? false : true,
               tabBarIcon: renderTabBarIcon(tab),
-              tabBarLabel: tab.label ? tab.label : () => null, // Conditionally render label
+              tabBarLabel: 
+                tab.label 
+                  ? tab.label 
+                  : () => null,
               tabBarLabelStyle: tab.label ? { marginBottom: 3 } : null,
             }}
           />
