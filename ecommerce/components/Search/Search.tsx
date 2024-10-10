@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { InputSearch as InputSearchHome } from '@/components/Search/InputSearch';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useHome } from '../home/HomeContext';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const Search = () => {
     const [search, setSearch] = useState('');
@@ -31,6 +32,12 @@ const Search = () => {
               size={20} 
             />
         </Animated.Text>
+        <Animated.Text style={[styles.iconVoice, { color: iconColor }]}>
+            <MaterialIcons 
+              name="keyboard-voice" 
+              size={20} 
+            />
+        </Animated.Text>
         <InputSearchHome
             value={search}
             onChangeText={(text) => setSearch(text)}
@@ -56,6 +63,13 @@ const styles = StyleSheet.create({
         zIndex:100,
         top:12,
         left:10
+        
+    },
+    iconVoice: {
+        position:'absolute',
+        zIndex:100,
+        top:12,
+        right:10
         
     },
 })
