@@ -1,15 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { Animated, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { InputSearch as InputSearchHome } from '@/components/Search/InputSearch';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useHome } from '../home/HomeContext';
 
 const Search = () => {
     const [search, setSearch] = useState('');
+    const { isFocused, setFocus} = useHome();
+    // Create an Animated.Value to handle the icon color transition
+    const iconColorAnim = useRef(new Animated.Value(0)).current;
+    useEffect(() => {
+        // Animate the icon color when the input is focused/unfocused
+        Animated.timing(iconColorAnim, {
+            toValue: isFocused ? 1 : 0, // 1 for focused, 0 for unfocused
+            duration: 100, // Duration for the smooth transition
+            useNativeDriver: false, // color interpolation can't use native driver
+        }).start();
+    }, [isFocused, iconColorAnim]);
+    // Interpolate the icon color between unfocused (gray) and focused (orange)
+    const iconColor = iconColorAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['#d4d4d8', '#f97316'], // gray when unfocused, orange when focused
+    });
+    
   return (
     <View style={styles.searchComponent}>
-        <Text style={styles.iconSearch}>
-            <Ionicons name="search" size={20} color="#d4d4d8" />
-        </Text>
+        <Animated.Text style={[styles.iconSearch, { color: iconColor }]}>
+            <Ionicons 
+              name="search" 
+              size={20} 
+            />
+        </Animated.Text>
         <InputSearchHome
             value={search}
             onChangeText={(text) => setSearch(text)}
@@ -33,8 +54,8 @@ const styles = StyleSheet.create({
     iconSearch: {
         position:'absolute',
         zIndex:100,
-        top:10,
-        left:15
+        top:12,
+        left:10
         
     },
 })

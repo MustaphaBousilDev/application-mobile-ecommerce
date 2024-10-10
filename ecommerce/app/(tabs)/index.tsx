@@ -1,5 +1,6 @@
 import { View, Text, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect } from 'react'
+import { HomeProvider } from '@/components/home/HomeContext';
 export default function Home() {
   const [HomeScreen, setHomeScreen] = useState<React.ComponentType<any> | null>(null);
   useEffect(() => {
@@ -23,5 +24,9 @@ export default function Home() {
       </View>
     );
   }
-  return <HomeScreen/>
+  return (
+    <HomeProvider>
+      <HomeScreen/>
+    </HomeProvider>
+  )
 }
