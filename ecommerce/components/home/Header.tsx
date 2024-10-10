@@ -1,39 +1,37 @@
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import OptimizedImageBackground from '@/components/ImagesComp/ImgBackground'
 
-const Header = () => {
-  return (
-    <View style={styles.header}>
-        <TouchableOpacity style={styles.barHeader}>
-            <FontAwesome6
-                  name="bars-staggered"
-                  color="#334155"
-                  size={20}
-            />
-        </TouchableOpacity>
-        <View style={styles.logo}>
-            <ImageBackground
-                source={require('@/assets/images/splashingLogo.png')}
-                resizeMode="cover"
-                style={styles.logoIMG}
-            />
-            <Text style={styles.logoLabel}>Mu<Text style={styles.logoLabelSpan}>Gi</Text></Text>
-        </View>
-        <View style={styles.avatar}>
-            <TouchableOpacity>
-                    <ImageBackground 
-                    source={require('@/assets/images/mustapha.jpeg')}
-                    resizeMode="cover"
-                    style={styles.logoProfile}
-                    />
-            </TouchableOpacity>
-        </View>
-    </View>
-  )
-}
+const Header = React.memo(() => {
+    //we using CallBack to memoize the handler
+    const handlePress = useCallback(() => {
+        // Your handler logic here
+      }, []); // Add dependencies if necessary
+    return (
+      <View style={styles.header}>
+          <TouchableOpacity style={styles.barHeader} onPress={handlePress}>
+              <FontAwesome6
+                    name="bars-staggered"
+                    color="#334155"
+                    size={20}
+              />
+          </TouchableOpacity>
+          <OptimizedImageBackground
+            source={require('@/assets/images/splashingLogo.png')}
+            style={styles.logoIMG}
+            containerStyle={styles.logo}
+          />
+          <OptimizedImageBackground
+            source={require('@/assets/images/mustapha.jpeg')}
+            style={styles.logoProfile}
+            containerStyle={styles.avatar}
+          />
+      </View>
+    )
+  })
 
-export {Header}
+
 
 const styles = StyleSheet.create({
     header:{
@@ -92,3 +90,6 @@ const styles = StyleSheet.create({
         borderRadius:300
     }
   });
+
+
+  export default Header

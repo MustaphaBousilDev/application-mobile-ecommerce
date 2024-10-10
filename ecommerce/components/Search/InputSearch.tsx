@@ -24,7 +24,7 @@ const InputSearch:React.FC<InputSearchProps> = ({
   useEffect(() => {
     Animated.timing(borderColorAnim, {
         toValue: isFocused ?  1 : 0, // 1 when focused, 0 when unfocused
-        duration: 100, //Duration for the smooth transition
+        duration: 300, //Duration for the smooth transition
         useNativeDriver: true, //
     }).start()
   }, [isFocused, borderColorAnim])

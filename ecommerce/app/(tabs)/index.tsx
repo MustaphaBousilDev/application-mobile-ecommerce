@@ -1,32 +1,30 @@
 import { View, Text, ActivityIndicator } from 'react-native';
-import React, { useState, useEffect } from 'react'
+import React, { useState, Suspense } from 'react';
 import { HomeProvider } from '@/components/home/HomeContext';
-export default function Home() {
-  const [HomeScreen, setHomeScreen] = useState<React.ComponentType<any> | null>(null);
-  useEffect(() => {
-    const loadHomeScreen = async () => {
-      try {
-        const LoadedHomeScreen = (await import('../screens/Home')).default;
-        setHomeScreen(() => LoadedHomeScreen); // Set the loaded component
-      } catch (error) {
-        console.error("Error loading HomeScreen:", error);
-      }
-    };
 
-    // Trigger loading of the screen when the component mounts
-    loadHomeScreen();
-  }, []); // Empty dependency array to ensure it only runs once on mount
-  if (!HomeScreen) {
+const HomeScreen = React.lazy(() => import('../screens/Home')); // Lazy load HomeScreen
+
+export default function Home() {
+  const [error, setError] = useState<string | null>(null);
+
+  // No need for separate state to hold HomeScreen since it's lazy loaded
+  if (error) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <Text>Loading...</Text>
+        <Text style={{ color: 'red' }}>{error}</Text>
       </View>
     );
   }
+
   return (
     <HomeProvider>
-      <HomeScreen/>
+      <Suspense fallback={
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="red" />
+        </View>
+      }>
+        <HomeScreen />
+      </Suspense>
     </HomeProvider>
-  )
+  );
 }

@@ -7,13 +7,14 @@ import {
     FlatList,
     View,
     Text,
+    ActivityIndicator,
 } from 'react-native'
-import React, { useMemo } from 'react'
-import { Header as HeaderHome } from '@/components/home/Header'
-import {Search as SearchComponent} from '@/components/Search/Search';
+import React, { lazy, Suspense } from 'react'
+const HeaderHome = lazy(() => import('@/components/home/Header'));
+const SearchComponent = lazy(() => import('@/components/Search/Search'));
+
+
 const HomeScreen = () => {
-    const MemoizedHeader = useMemo(() => <HeaderHome />, [])
-    const MemoizedSearchComponent = useMemo(() => <SearchComponent />, [])
     const data: any = []; // Empty data
     const hasData = data.length > 0;
   return (
@@ -27,15 +28,34 @@ const HomeScreen = () => {
               <FlatList
                 data={data}
                 renderItem={null}
-                ListHeaderComponent={MemoizedHeader}
-                ListFooterComponent={MemoizedSearchComponent}
+                ListHeaderComponent={
+                  <Suspense 
+                    fallback={
+                      <ActivityIndicator size="small" color="#0000ff" />
+                  }>
+                    <HeaderHome />
+                  </Suspense>}
+                ListFooterComponent={
+                  <Suspense 
+                    fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+                      <SearchComponent />
+                  </Suspense>
+                }
                 keyExtractor={() => 'static-list'}
                 contentContainerStyle={styles.container}
               />
             ) : (
               <>
-                {MemoizedHeader}
-                {MemoizedSearchComponent}
+                <Suspense fallback={
+                  <View style={{marginVertical:40}}>
+                    <ActivityIndicator size="small" color="yellow" />
+                  </View>
+                }>
+                  <HeaderHome />
+                </Suspense>
+                <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+                  <SearchComponent />
+                </Suspense>
                 <Text style={styles.noDataText}>No data available.</Text>
               </>
             )}
