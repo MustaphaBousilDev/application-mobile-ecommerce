@@ -23,9 +23,9 @@ const Header = () => {
         <View style={styles.avatar}>
             <TouchableOpacity>
                     <ImageBackground 
-                    source={require('@/assets/images/splashingLogo.png')}
+                    source={require('@/assets/images/mustapha.jpeg')}
                     resizeMode="cover"
-                    style={styles.logoIMG}
+                    style={styles.logoProfile}
                     />
             </TouchableOpacity>
         </View>
@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
     logoIMG:{
         width: 45,
         height:40,
+        borderRadius:300,
+    },
+    logoProfile:{
+        width: '100%',
+        height:'100%',
+        
     },
     logoLabel:{
         fontWeight:'700',
@@ -80,8 +86,9 @@ const styles = StyleSheet.create({
         height:50,
         backgroundColor:'#f97316',
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
+        overflow:'hidden',
+        borderWidth:2,
+        borderColor:'#f97316',
         borderRadius:300
     }
   });

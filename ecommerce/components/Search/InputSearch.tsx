@@ -13,7 +13,7 @@ interface InputSearchProps extends TextInputProps {
 const InputSearch:React.FC<InputSearchProps> = ({
     value,
     onChangeText,
-    placeHolder = 'Type here...',
+    placeHolder = 'Search',
     style,
     onSubmitEditing,
     ...rest //spread the rest of the props
@@ -24,7 +24,7 @@ const InputSearch:React.FC<InputSearchProps> = ({
   useEffect(() => {
     Animated.timing(borderColorAnim, {
         toValue: isFocused ?  1 : 0, // 1 when focused, 0 when unfocused
-        duration: 200, //Duration for the smooth transition
+        duration: 100, //Duration for the smooth transition
         useNativeDriver: true, //
     }).start()
   }, [isFocused, borderColorAnim])
@@ -40,8 +40,8 @@ const InputSearch:React.FC<InputSearchProps> = ({
             style={[styles.input]}
             value={value}
             onChangeText={onChangeText}
-            placeholder={placeHolder}
-            placeholderTextColor="#888"
+            placeholder={isFocused ? 'Type ...' : placeHolder}
+            placeholderTextColor={isFocused ? '#d6d3d1' : "#888"}
             keyboardType="default"
             returnKeyType="done"
             onFocus={() => setFocus(true)}
