@@ -26,9 +26,9 @@ export {Search}
 const styles = StyleSheet.create({
     searchComponent:{position:'relative'},
     customInputSearch: {
-        backgroundColor: '#f0f0f0',  // Custom background
-        borderColor: '#ccc',  // Optional border
-        borderWidth: 1,
+        backgroundColor: '#fff',  // Custom background
+        //borderColor: '#ccc',  // Optional border
+        //borderWidth: 1,
     },
     iconSearch: {
         position:'absolute',

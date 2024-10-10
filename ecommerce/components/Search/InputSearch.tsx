@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         backgroundColor: '#fff',
         elevation: 2, // For Android shadow
-        shadowColor: '#000', // iOS shadow color
+        shadowColor: 'gray', // iOS shadow color
         shadowOffset: {
             width: 0, // Horizontal shadow offset
             height: 2, // Vertical shadow offset
         },
         shadowOpacity: 0.1, // Shadow opacity
-        shadowRadius: 4, // Shadow blur radius
+        shadowRadius: 2, // Shadow blur radius
     },
 })
