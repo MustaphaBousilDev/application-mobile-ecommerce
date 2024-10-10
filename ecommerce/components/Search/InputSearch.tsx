@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TextInput, TextInputProps, View, ViewStyle } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Animated, TextInput, TextInputProps, ViewStyle } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 
 interface InputSearchProps extends TextInputProps {
     value: string;
@@ -17,37 +17,59 @@ const InputSearch:React.FC<InputSearchProps> = ({
     onSubmitEditing,
     ...rest //spread the rest of the props
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const borderColorAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(borderColorAnim, {
+        toValue: isFocused ?  1 : 0, // 1 when focused, 0 when unfocused
+        duration: 200, //Duration for the smooth transition
+        useNativeDriver: true, //
+    }).start()
+  }, [isFocused, borderColorAnim])
+
+  //Interpolate the animation value to map 0 -> 'gray ' (unfocused) and 1 -> '#007AFF' (focused)
+  const borderColor = borderColorAnim.interpolate({
+    inputRange: [0,1],
+    outputRange: ['transparent', 'red']
+  });
   return (
-    <TextInput
-        style={[styles.input, style]}
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeHolder}
-        placeholderTextColor="#888"
-        keyboardType="default"
-        returnKeyType="done"
-        onSubmitEditing={onSubmitEditing} // Action on submit
-        {...rest} // Pass any other TextInput props (e.g., autoCapitalize, multiline)
-    />
+    <Animated.View style={[styles.container, { borderColor }, style]}>
+        <TextInput
+            style={[styles.input]}
+            value={value}
+            onChangeText={onChangeText}
+            placeholder={placeHolder}
+            placeholderTextColor="#888"
+            keyboardType="default"
+            returnKeyType="done"
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)} 
+            onSubmitEditing={onSubmitEditing} // Action on submit
+            {...rest} // Pass any other TextInput props (e.g., autoCapitalize, multiline)
+        />
+    </Animated.View>
   )
 }
 
 export {InputSearch}
 
 const styles = StyleSheet.create({
-    input: {
+    container: {
         width: '100%',
-        height: 44,
         borderRadius: 5,
-        paddingHorizontal: 40,
-        backgroundColor: '#fff',
-        elevation: 2, // For Android shadow
-        shadowColor: 'gray', // iOS shadow color
+        elevation: 2, // Android shadow
+        shadowColor: 'gray', // iOS shadow
         shadowOffset: {
-            width: 0, // Horizontal shadow offset
-            height: 2, // Vertical shadow offset
+            width: 0,
+            height: 2,
         },
-        shadowOpacity: 0.1, // Shadow opacity
-        shadowRadius: 2, // Shadow blur radius
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        borderWidth: 0.5, // Initial border width
+    },
+    input: {
+        height: 44,
+        paddingHorizontal: 40,
+        borderRadius: 5,
     },
 })
