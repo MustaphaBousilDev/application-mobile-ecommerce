@@ -5,24 +5,30 @@ import {
     Platform,
     TouchableWithoutFeedback,
     Keyboard,
+    FlatList,
 } from 'react-native'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 
 import { Header as HeaderHome } from '@/components/home/Header'
 import {Search as SearchComponent} from '@/components/Search/Search';
 const HomeScreen = () => {
-    
+    const MemoizedHeader = useMemo(() => <HeaderHome />, [])
+    const MemoizedSearchComponent = useMemo(() => <SearchComponent />, [])
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <ScrollView contentContainerStyle={styles.container}>
-                <HeaderHome/>
-                <SearchComponent/>
-            </ScrollView>
+            <FlatList
+              data={[]}
+              renderItem={null}
+              ListHeaderComponent={MemoizedHeader}
+              ListFooterComponent={MemoizedSearchComponent}
+              contentContainerStyle={styles.container}
+              keyExtractor={() => 'static-list'}
+            />
         </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   )
