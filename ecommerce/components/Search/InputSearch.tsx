@@ -1,5 +1,5 @@
 import { StyleSheet, Animated, TextInput, TextInputProps, ViewStyle } from 'react-native'
-import React, { useState, useEffect, useRef } from 'react'
+import React, {  useEffect, useRef } from 'react'
 import { useHome } from '../home/HomeContext';
 
 interface InputSearchProps extends TextInputProps {
@@ -10,7 +10,7 @@ interface InputSearchProps extends TextInputProps {
     onSubmitEditing: () => void;
 }
 
-const InputSearch:React.FC<InputSearchProps> = ({
+const InputSearch:React.FC<InputSearchProps> = React.memo(({
     value,
     onChangeText,
     placeHolder = 'Search',
@@ -51,9 +51,9 @@ const InputSearch:React.FC<InputSearchProps> = ({
         />
     </Animated.View>
   )
-}
+})
 
-export {InputSearch}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -78,3 +78,4 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
 })
+export default InputSearch

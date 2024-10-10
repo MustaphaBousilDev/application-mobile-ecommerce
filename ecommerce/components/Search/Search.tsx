@@ -1,9 +1,11 @@
-import { Animated, StyleSheet, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
-import { InputSearch as InputSearchHome } from '@/components/Search/InputSearch';
+import { Animated, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useRef, useState, useCallback, lazy, Suspense,  } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useHome } from '../home/HomeContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+const InputSearchHome = lazy(() => import('@/components/Search/InputSearch'));
+
 
 const Search = () => {
     const [search, setSearch] = useState('');
@@ -23,6 +25,14 @@ const Search = () => {
         inputRange: [0, 1],
         outputRange: ['#d4d4d8', '#f97316'], // gray when unfocused, orange when focused
     });
+    const handleSearchChange = useCallback((text: string) => {
+        setSearch(text);
+    }, []);
+
+    const handleSubmitEditing = () => {
+        console.log('Search was submitted:', search);
+    };
+
     
   return (
     <View style={styles.searchComponent}>
@@ -38,13 +48,15 @@ const Search = () => {
               size={20} 
             />
         </Animated.Text>
-        <InputSearchHome
-            value={search}
-            onChangeText={(text) => setSearch(text)}
-            onSubmitEditing={() => 'Fucking Search was Submitted'}
-            style={styles.customInputSearch}
-            autoCapitalize='none' //Addional TextInput Prop
-        />
+        <Suspense fallback={<View style={styles.loading}><Text>Loading...</Text></View>}>
+            <InputSearchHome
+                value={search}
+                onChangeText={handleSearchChange}
+                onSubmitEditing={handleSubmitEditing}
+                style={styles.customInputSearch}
+                autoCapitalize='none' //Addional TextInput Prop
+            />
+        </Suspense>
     </View>
   )
 }
@@ -71,5 +83,8 @@ const styles = StyleSheet.create({
         top:12,
         right:10
         
+    },
+    loading: {
+        // Style for loading state
     },
 })
