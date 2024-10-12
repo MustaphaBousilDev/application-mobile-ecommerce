@@ -20,20 +20,19 @@ const CustomSkeleton: React.FC<SkeletonProps> = ({
         Animated.sequence([
             Animated.timing(animatedValue, {
                 toValue: 1,
-                duration: 1000,
-                useNativeDriver: true,
+                duration: 600,
+                useNativeDriver: false,
             }),
             Animated.timing(animatedValue, {
                 toValue: 0,
-                duration: 1000,
-                useNativeDriver: true,
+                duration: 600,
+                useNativeDriver: false,
             }),
-            Animated.timing(animatedValue, {
-                toValue: 0,
-                duration: 1000,
-                useNativeDriver: true,
-            })
-        ])
+            
+        ]),
+        {
+            iterations: -1, //Infinite loop
+        }
     ).start()
   }, [animatedValue])
   const backgroundColor = animatedValue.interpolate({
@@ -58,7 +57,7 @@ const CustomSkeleton: React.FC<SkeletonProps> = ({
 
 const styles = StyleSheet.create({
     skeletonBase: {
-      marginVertical: 5,
+      marginVertical: 0,
       backgroundColor: '#e0e0e0', // Default color (can be animated)
     },
   });

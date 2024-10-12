@@ -1,8 +1,9 @@
-import { Animated, StyleSheet, Text, View } from 'react-native'
+import { Animated, StyleSheet, View } from 'react-native'
 import React, { useEffect, useRef, useState, useCallback, lazy, Suspense,  } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useHome } from '../home/HomeContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { CustomSkeleton } from '../Skeleton/CustomSkeleton';
 
 const InputSearchHome = lazy(() => import('@/components/Search/InputSearch'));
 
@@ -48,7 +49,7 @@ const Search = () => {
               size={20} 
             />
         </Animated.Text>
-        <Suspense fallback={<View style={styles.loading}><Text>Loading...</Text></View>}>
+        <Suspense fallback={<CustomSkeleton width={'100%'} height={50} borderRadius={5} />}>
             <InputSearchHome
                 value={search}
                 onChangeText={handleSearchChange}

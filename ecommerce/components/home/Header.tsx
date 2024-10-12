@@ -1,10 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useCallback } from 'react'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import OptimizedImageBackground from '@/components/ImagesComp/ImgBackground'
-import { CustomSkeleton  } from '../Skeleton/CustomSkeleton';
 const Header = React.memo(() => {
-    //we using CallBack to memoize the handler
     const handlePress = useCallback(() => {
         // Your handler logic here
       }, []); // Add dependencies if necessary

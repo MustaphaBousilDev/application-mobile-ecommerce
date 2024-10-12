@@ -48,13 +48,15 @@ const HomeScreen = () => {
             ) : (
               <>
                 <Suspense fallback={
-                  <View style={{marginVertical:40}}>
+                  <View style={{marginTop:40}}>
                     <SkeletonHome width={'100%'} height={50} borderRadius={5} />
                   </View>
                 }>
                   <HeaderHome />
                 </Suspense>
-                <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+                <Suspense fallback={<View style={{marginVertical:5}}>
+                  <SkeletonHome width={'100%'} height={50} borderRadius={5} />
+                  </View>}>
                   <SearchComponent />
                 </Suspense>
                 <Text style={styles.noDataText}>No data available.</Text>
