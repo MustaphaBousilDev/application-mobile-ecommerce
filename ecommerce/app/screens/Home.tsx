@@ -10,6 +10,7 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import React, { lazy, Suspense } from 'react'
+import { CustomSkeleton as SkeletonHome } from '@/components/Skeleton/CustomSkeleton';
 const HeaderHome = lazy(() => import('@/components/home/Header'));
 const SearchComponent = lazy(() => import('@/components/Search/Search'));
 
@@ -48,7 +49,7 @@ const HomeScreen = () => {
               <>
                 <Suspense fallback={
                   <View style={{marginVertical:40}}>
-                    <ActivityIndicator size="small" color="#0000ff" />
+                    <SkeletonHome width={'100%'} height={50} borderRadius={5} />
                   </View>
                 }>
                   <HeaderHome />

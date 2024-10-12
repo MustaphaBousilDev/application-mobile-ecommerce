@@ -38,7 +38,7 @@ const CustomSkeleton: React.FC<SkeletonProps> = ({
   }, [animatedValue])
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0,1],
-    outputRange: ['#e0e0e0','#c0c0c0'],
+    outputRange: ['#cbd5e1','#e2e8f0'],
   })
   return (
     <Animated.View

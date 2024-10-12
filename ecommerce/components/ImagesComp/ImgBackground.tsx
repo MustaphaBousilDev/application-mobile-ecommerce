@@ -1,18 +1,23 @@
-import { View, Image, ActivityIndicator, ImageStyle, ViewStyle } from 'react-native';
+import { View, Image, ImageStyle, ViewStyle } from 'react-native';
 import React, { useState } from 'react';
+import { CustomSkeleton as SkeletonImg} from '../Skeleton/CustomSkeleton';
 
 interface OptimizedImageProps {
-    source: any; // You can use a more specific type if you know it (e.g., { uri: string } | number for local images)
-    style?: ImageStyle; // Optional style for the image
-    containerStyle?: ViewStyle; // Optional style for the container view
+    source: any; 
+    style?: ImageStyle; 
+    containerStyle?: ViewStyle;
   }
 
-const OptimizedImageBackground:React.FC<OptimizedImageProps> = ({ source, style, containerStyle, }) => {
+const OptimizedImageBackground:React.FC<OptimizedImageProps> = ({ 
+  source,
+  style,
+  containerStyle,
+}) => {
   const [loading, setLoading] = useState(true);
 
   return (
     <View style={containerStyle}>
-      {loading && <ActivityIndicator size="small" color="#0000ff" />}
+      {loading && <SkeletonImg width={50} height={50} borderRadius={300} />}
       <Image
         source={source}
         style={[style, { display: loading ? 'none' : 'flex' }]}
