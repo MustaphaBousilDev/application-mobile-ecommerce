@@ -9,15 +9,47 @@ import {
     Text,
     ActivityIndicator,
 } from 'react-native'
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useCallback } from 'react'
 import { CustomSkeleton as SkeletonHome } from '@/components/Skeleton/CustomSkeleton';
 const HeaderHome = lazy(() => import('@/components/home/Header'));
 const SearchComponent = lazy(() => import('@/components/Search/Search'));
+
+// Memoized components to avoid unnecessary re-renders
+const MemoizedHeaderHome = React.memo(HeaderHome);
+const MemoizedSearchComponent = React.memo(SearchComponent);
 
 
 const HomeScreen = () => {
     const data: any = []; // Empty data
     const hasData = data.length > 0;
+  // Memoized render item function
+  const renderHeader = useCallback(() => (
+    <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+        <MemoizedHeaderHome />
+    </Suspense>
+  ), []);
+  const renderHeaderSearch = useCallback(() => (
+    <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+        <MemoizedSearchComponent />
+    </Suspense>
+  ), []);
+  const renderSkeletons = () => (
+    <>
+        <Suspense fallback={
+            <View style={{ marginTop: 40 }}>
+                <SkeletonHome width={'100%'} height={50} borderRadius={5} />
+            </View>
+        }>
+            <MemoizedHeaderHome />
+        </Suspense>
+        <Suspense fallback={<View style={{ marginVertical: 5 }}>
+            <SkeletonHome width={'100%'} height={50} borderRadius={5} />
+        </View>}>
+            <MemoizedSearchComponent />
+        </Suspense>
+        <Text style={styles.noDataText}>No data available.</Text>
+    </>
+);
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -29,39 +61,14 @@ const HomeScreen = () => {
               <FlatList
                 data={data}
                 renderItem={null}
-                ListHeaderComponent={
-                  <Suspense 
-                    fallback={
-                      <ActivityIndicator size="small" color="#0000ff" />
-                  }>
-                    <HeaderHome />
-                  </Suspense>}
-                ListFooterComponent={
-                  <Suspense 
-                    fallback={<ActivityIndicator size="small" color="#0000ff" />}>
-                      <SearchComponent />
-                  </Suspense>
-                }
+                ListHeaderComponent={renderHeader}
+                ListFooterComponent={renderHeaderSearch}
                 keyExtractor={() => 'static-list'}
                 contentContainerStyle={styles.container}
+                removeClippedSubviews={true} //optimize memory usage
+                initialNumToRender={5} //render first 5 items initialy
               />
-            ) : (
-              <>
-                <Suspense fallback={
-                  <View style={{marginTop:40}}>
-                    <SkeletonHome width={'100%'} height={50} borderRadius={5} />
-                  </View>
-                }>
-                  <HeaderHome />
-                </Suspense>
-                <Suspense fallback={<View style={{marginVertical:5}}>
-                  <SkeletonHome width={'100%'} height={50} borderRadius={5} />
-                  </View>}>
-                  <SearchComponent />
-                </Suspense>
-                <Text style={styles.noDataText}>No data available.</Text>
-              </>
-            )}
+            ) : (renderSkeletons())}
           </View>
         </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
