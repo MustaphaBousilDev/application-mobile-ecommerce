@@ -48,7 +48,7 @@ const HomeScreen = () => {
               <>
                 <Suspense fallback={
                   <View style={{marginVertical:40}}>
-                    <ActivityIndicator size="small" color="yellow" />
+                    <ActivityIndicator size="small" color="#0000ff" />
                   </View>
                 }>
                   <HeaderHome />
