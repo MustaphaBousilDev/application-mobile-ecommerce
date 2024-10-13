@@ -41,7 +41,7 @@ const InputSearch:React.FC<InputSearchProps> = React.memo(({
             value={value}
             onChangeText={onChangeText}
             placeholder={isFocused ? 'Type ...' : placeHolder}
-            placeholderTextColor={isFocused ? '#d6d3d1' : "#888"}
+            placeholderTextColor={isFocused ? '#d6d3d1' : "#cbd5e1"}
             keyboardType="default"
             returnKeyType="done"
             onFocus={() => setFocus(true)}

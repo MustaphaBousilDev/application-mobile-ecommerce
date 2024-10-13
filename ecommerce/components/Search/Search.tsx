@@ -53,6 +53,7 @@ const Search = () => {
             <InputSearchHome
                 value={search}
                 onChangeText={handleSearchChange}
+                placeHolder='Search any Product...'
                 onSubmitEditing={handleSubmitEditing}
                 style={styles.customInputSearch}
                 autoCapitalize='none' //Addional TextInput Prop
