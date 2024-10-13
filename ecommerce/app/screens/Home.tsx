@@ -92,7 +92,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
     container: {
       flexGrow: 1,
-      backgroundColor: '#fafaf9',
+      backgroundColor: '#f8fafc',
       padding:10,
       paddingHorizontal:15
     },

@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const FilterSorting = () => {
   return (
@@ -15,7 +16,7 @@ const FilterSorting = () => {
         </TouchableOpacity>
         <TouchableOpacity  style={styles.button}>
             <Text>Filter</Text>
-            <Text>df</Text>
+            <Text><AntDesign name="filter" size={22} color="black" /></Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     container: {
        flexDirection:'row',
        justifyContent:'space-between',
-       paddingVertical:5,
+       paddingVertical:8,
        alignItems:'center'
     },
     title:{
@@ -39,10 +40,18 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         gap:3,
         alignItems:'center',
-        backgroundColor:'red',
-        padding:5,
-        paddingVertical:2,
-        borderRadius:7
+        backgroundColor:'#fff',
+        padding:7,
+        paddingVertical:3,
+        borderRadius:7,
+        elevation: 2, // Android shadow
+        shadowColor: 'gray', // iOS shadow
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
     },
     left:{},
     right:{
