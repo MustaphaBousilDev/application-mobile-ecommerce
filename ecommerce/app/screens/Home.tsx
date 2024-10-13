@@ -26,19 +26,17 @@ const HomeScreen = () => {
     const hasData = data.length > 0;
   // Memoized render item function
   const renderHeader = useCallback(() => (
-    <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
-        <MemoizedHeaderHome />
-    </Suspense>
-  ), []);
-  const renderFilterSorting = useCallback(() => (
-    <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
-        <MemoizedFilterSortingComponent />
-    </Suspense>
-  ),[])
-  const renderHeaderSearch = useCallback(() => (
-    <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
-        <MemoizedSearchComponent />
-    </Suspense>
+    <>
+      <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+          <MemoizedHeaderHome />
+      </Suspense>
+      <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+          <MemoizedSearchComponent />
+      </Suspense>
+      <Suspense fallback={<ActivityIndicator size="small" color="#0000ff" />}>
+          <MemoizedFilterSortingComponent />
+      </Suspense>
+    </>
   ), []);
   const renderSkeletons = () => (
     <>
